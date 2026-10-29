@@ -1,5 +1,9 @@
 import type { NightDigest } from '../digest/types.js';
 
+function displayValue(value: string | null): string {
+  return value?.trim() ? value : '—';
+}
+
 export function DigestPage({ digest }: { digest: NightDigest }) {
   return (
     <>
@@ -19,9 +23,9 @@ export function DigestPage({ digest }: { digest: NightDigest }) {
           <tbody>
             {digest.rows.map((row) => (
               <tr>
-                <td>{row.job}</td><td>{row.owner ?? '—'}</td><td>{row.runs}</td>
+                <td>{row.job}</td><td>{displayValue(row.owner)}</td><td>{row.runs}</td>
                 <td class={row.retries >= 3 ? 'warn' : undefined}>{row.retries}{row.retries >= 3 ? ' ⚠' : ''}</td>
-                <td>{row.lastStatus}</td><td>{row.lastError ?? '—'}</td>
+                <td>{row.lastStatus}</td><td>{displayValue(row.lastError)}</td>
                 <td>{row.firstAt}</td><td>{row.lastAt}</td>
                 <td class={row.hasFailed ? 'warn' : undefined}>{row.hasFailed ? 'yes ⚠' : 'no'}</td>
               </tr>
