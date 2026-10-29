@@ -1,6 +1,6 @@
 ---
 plan: morning-digest
-status: ready
+status: done
 owner: rook
 opened: 2026-10-29
 ---
@@ -77,3 +77,16 @@ page again with `LANE_MARKER` unset (the banner reads "no marker set") and uploa
 link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
+
+Cleanup is pending coordinator replacement and public verification, including the obsolete marked
+deployment; public cleanup is not yet complete.
+
+## Issues
+
+- https://github.com/dabku/mega-s01e04/issues/1
+- https://github.com/dabku/mega-s01e04/issues/2
+- https://github.com/dabku/mega-s01e04/issues/3
+- https://github.com/dabku/mega-s01e04/issues/4
+- https://github.com/dabku/mega-s01e04/issues/5
+- https://github.com/dabku/mega-s01e04/issues/6
+- https://github.com/dabku/mega-s01e04/issues/7
