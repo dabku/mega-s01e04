@@ -12,12 +12,19 @@ export type Status = {
   digestCounts: Record<string, NightDigest['counts'] | null>;
 };
 
+function validNight(name: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}\.jsonl$/.test(name)) return false;
+  const night = name.slice(0, 10);
+  const date = new Date(`${night}T00:00:00Z`);
+  return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === night;
+}
+
 // Nights on disk = runs/<YYYY-MM-DD>.jsonl, newest first.
 export function nightsOnDisk(runsDir: string): string[] {
   try {
-    return readdirSync(runsDir)
-      .filter((f) => /^\d{4}-\d{2}-\d{2}\.jsonl$/.test(f))
-      .map((f) => f.slice(0, 10))
+    return readdirSync(runsDir, { withFileTypes: true })
+      .filter((entry) => entry.isFile() && validNight(entry.name))
+      .map((entry) => entry.name.slice(0, 10))
       .sort()
       .reverse();
   } catch {
@@ -28,7 +35,13 @@ export function nightsOnDisk(runsDir: string): string[] {
 export function readStatus(config: RigConfig): Status {
   const nights = nightsOnDisk(config.runsDir);
   const digestCounts = Object.fromEntries(
-    nights.map((night) => [night, readNight(config.runsDir, night)?.counts ?? null]),
+    nights.map((night) => {
+      try {
+        return [night, readNight(config.runsDir, night)?.counts ?? null];
+      } catch {
+        return [night, null];
+      }
+    }),
   );
   return {
     adapter: config.adapter,
