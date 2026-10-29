@@ -78,8 +78,9 @@ link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
 
-Cleanup is pending coordinator replacement and public verification, including the obsolete marked
-deployment; public cleanup is not yet complete.
+Cleanup verified: the [stable preview](https://mega-s01e04-dabku.pages.dev/) matches the
+regenerated HTML byte-for-byte, and its banner says "no marker set". Cloudflare confirmed the
+obsolete marked deployment was deleted; only the clean deployment remains.
 
 ## Issues
 
